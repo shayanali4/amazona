@@ -8,11 +8,13 @@ import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
 import orderRouter from "./routers/orderRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(
@@ -43,7 +45,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5002;
 
 const httpServer = http.Server(app);
 const io = new Server(httpServer, { cors: { origin: "*" } });
